@@ -1,0 +1,624 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A Material Design theme for MkDocs">
+      
+      
+        <link rel="canonical" href="https://squidfunk.github.io/mkdocs-material/Kmeans/">
+      
+      
+        <meta name="author" content="Nanda Amilia Putri">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>K-Means - Data Mining</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "None", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#data-mining-menggunakan-clustering-dengan-algoritma-k-means" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://squidfunk.github.io/mkdocs-material/" title="Data Mining" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Mining
+            </span>
+            <span class="md-header-nav__topic">
+              K-Means
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/NandaAmiliaPutri/170441100094" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    NandaAmiliaPutri/170441100094
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Biografi" class="md-tabs__link md-tabs__link--active">
+        Biografi
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://squidfunk.github.io/mkdocs-material/" title="Data Mining" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Mining
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/NandaAmiliaPutri/170441100094" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    NandaAmiliaPutri/170441100094
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Biografi" class="md-nav__link">
+      Biografi
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        K-Means
+      </label>
+    
+    <a href="./" title="K-Means" class="md-nav__link md-nav__link--active">
+      K-Means
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clustering" title="Clustering" class="md-nav__link">
+    Clustering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritma-k-means" title="Algoritma K-Means" class="md-nav__link">
+    Algoritma K-Means
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teori-manual" title="Teori Manual" class="md-nav__link">
+    Teori Manual
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tahapan-algoritma-k-means" title="Tahapan Algoritma K-Means" class="md-nav__link">
+    Tahapan Algoritma K-Means
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi" title="Implementasi" class="md-nav__link">
+    Implementasi
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refrensi" title="Refrensi:" class="md-nav__link">
+    Refrensi:
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../KNN/" title="K-Nearest Neighbors" class="md-nav__link">
+      K-Nearest Neighbors
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Tree/" title="Decision Tree" class="md-nav__link">
+      Decision Tree
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clustering" title="Clustering" class="md-nav__link">
+    Clustering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritma-k-means" title="Algoritma K-Means" class="md-nav__link">
+    Algoritma K-Means
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teori-manual" title="Teori Manual" class="md-nav__link">
+    Teori Manual
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tahapan-algoritma-k-means" title="Tahapan Algoritma K-Means" class="md-nav__link">
+    Tahapan Algoritma K-Means
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi" title="Implementasi" class="md-nav__link">
+    Implementasi
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refrensi" title="Refrensi:" class="md-nav__link">
+    Refrensi:
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="data-mining-menggunakan-clustering-dengan-algoritma-k-means">Data Mining menggunakan Clustering dengan Algoritma K-Means</h1>
+<h3 id="clustering">Clustering</h3>
+<p>Clustering atau klasterisasi adalah metode pengelompokan data. Menurut Tan, 2006 clustering adalah sebuah proses untuk mengelompokkan data ke dalam beberapa cluster atau kelompok sehingga data dalam satu cluster memiliki tingkat kemiripan yang maksimum dan data antar cluster memiliki kemiripan yang minimum.</p>
+<p>Clustering merupakan metode segmentasi data yang sangat berguna dalam prediksi dan analisa masalah bisnis tertentu. Misalnya segmentasi pasar, marketing dan pemetaan zonasi wilayah.</p>
+<h3 id="algoritma-k-means">Algoritma K-Means</h3>
+<p>K-Means merupakan salah satu metode clustering non hirarki yang berusaha mempartisi data yang ada ke dalam bentuk satu atau lebih cluster.</p>
+<p>Dalam metode K-Means data-data yang memiliki karakteristik yang sama diklaster dalam satu kelompok dan data yang memiliki karakteristik yang berbeda dikelompokkan dengan kelompok lain yang sesuai dengan karakteristik tersebut.</p>
+<h3 id="teori-manual">Teori Manual</h3>
+<p>Rumus perhitungan jarak menggunakan Rumus Euclidean Distance</p>
+<p><img alt="rumus ed" src="../assets/images/rumus ed.png" /></p>
+<p>keterangan :</p>
+<p>d(x,y) = jarak objek antara objek x dan y</p>
+<p>n = dimensi data</p>
+<p>xi = nilai kolom</p>
+<p>yi = </p>
+<h3 id="tahapan-algoritma-k-means">Tahapan Algoritma K-Means</h3>
+<p>Langkah 1 – Menentukan secara acak K titik data sebagai pusat cluster yang disebut centroid.</p>
+<p>Langkah 2 – Menandai masing masing 𝑥_𝑖 masuk ke ke cluster tertentu, dengan cara menghitung  jarak 𝑥_𝑖 ke masing masing pusat cluster (centroid) dan memasukkan 𝑥_𝑖  anggota pusat cluster tertentu tersebut jika memiliki jarak terdekat.</p>
+<p>Langkah 3 – Menentukan pusat cluster baru dengan menghitungya  rata rata dari anggota cluster</p>
+<p>Langkah  4 – Ulangai langkah 2 dan 3 sampai tidak tidak ada  dari anggota setiap cluster berubah tempat kelompoknya</p>
+<h3 id="implementasi">Implementasi</h3>
+<p>Dimisalkan kita memiliki sampel data wine quality. Dalam tabel berikut ada 15 buah data yang akan kita kelompokkan menjadi 3 cluster. Kita sebut saja C1, C2 dan C3. Kita menghitungnya menggunakan Excel.</p>
+<p><img alt="data awal + CENTROID" src="../assets/images/data awal + CENTROID.png" /></p>
+<p>Pertama kita tentukan centorid nya. disini centoid diambil dari data ke -3, data ke-10 dan data ke-14</p>
+<p><img alt="centoid" src="../assets/images/centoid.png" /></p>
+<p>Kemudian kita hitung Iterasi pertama dari ke 15 data tersebut dengan centroid awal yang sudah ditentukan menggunakan rumus Euclidean Distance sehingga menghasilkan data dibawah ini. Kemuadian kita tentukan data minimalnya, setelah itu kita kelompokkan data sesuai pada cluster nya menurut perhitungan angka yang terkecil. </p>
+<p><img alt="sudah hitung jarak" src="../assets/images/sudah hitung jarak.png" /></p>
+<p>Setelah data yang telah dihitung sudah terklompokkan sesuai cluster nya, kita cari rata-rata nya.</p>
+<p><img alt="kelompok cluster" src="../assets/images/kelompok cluster.png" /></p>
+<p><img alt="sudah ada centroid baru" src="../assets/images/sudah ada centroid baru.png" /></p>
+<p>Kemudian kita lakukan Iterasi kedua menggunakan centroid baru dari rata-rata kelompok cluster yang sudah dihitung sebelumnya</p>
+<p><img alt="iterasi 2" src="../assets/images/iterasi 2.png" /></p>
+<p>Setelah kita menghitung Iterasi kedua dan cluster nya tidak berubah, maka Iterasi dihentikan.</p>
+<p>Jadi jika perhitungan pada Iterasi pertama dan Iterasi kedua sama, berarti data yang telah dihitung sudah terkelompokkan pada cluster yang benar.</p>
+<h3 id="refrensi"><strong>Refrensi:</strong></h3>
+<ul>
+<li>Agusta, Y. 2007. K-means - Penerapan, Permasalahan dan Metode Terkait. Jurnal Sistem dan Informatika Vol. 3 (Februari 2007): 47-60.</li>
+<li>Dalam jurnal SNTIKI, vol (5), Hal 395-398, oleh Nengsih W, Febiyanto pada tahun 2012 dengan judul “Data Mining Analysis Pengelompokan Penerima Beasiswa Menggunakan Teknik Clustering K-Means.</li>
+<li><a href="https://id.wikipedia.org/wiki/K-means">https://id.wikipedia.org/wiki/K-means</a></li>
+<li><a href="https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97">https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97</a></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Biografi" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Biografi
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../KNN/" title="K-Nearest Neighbors" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                K-Nearest Neighbors
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Nanda Amilia Putri
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="http://struct.cc" class="md-footer-social__link fa fa-globe"></a>
+    
+      <a href="https://github.com/squidfunk" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="https://twitter.com/squidfunk" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://linkedin.com/in/squidfunk" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.8c0d971c.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
